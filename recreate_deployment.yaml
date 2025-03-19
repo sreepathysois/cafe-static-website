@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cafestatic-recreate
+  labels:
+    app: cafestatic
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cafestatic
+  template:
+    metadata:
+      labels:
+        app: cafestatic
+    spec:
+      containers:
+      - name: cafestatic
+        image: sreedocker123/cafewebimage:final
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
